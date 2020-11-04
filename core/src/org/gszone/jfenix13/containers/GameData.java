@@ -26,7 +26,7 @@ public class GameData {
 
     public enum ObjTypes {
         UseOnce, Weapon, Armadura, Arboles, Guita, Puertas, Contenedores, Carteles, Llaves, Foros, Pociones, Null1,
-        Bebidas, LeÃ±a, Fogata, Escudo, Casco, Anillo, Teleport, Null2, Null3, Yacimiento, Minerales, Pergaminos,
+        Bebidas, Leña, Fogata, Escudo, Casco, Anillo, Teleport, Null2, Null3, Yacimiento, Minerales, Pergaminos,
         Null4, Instrumentos, Yunque, Fragua, Null5, Null6, Barcos, Flechas, BotellaVacia, BotellaLlena,
         Manchas, ArbolElfico, Mochilas, Cualquiera
     }

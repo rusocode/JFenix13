@@ -19,8 +19,8 @@ public class CrearPjView extends View {
     public CrearPjManager getGestor() { return (CrearPjManager)gestor; }
 
     private VisTextField tfNombre;
-    private VisTextField tfContraseÃ±a;
-    private VisTextField tfRContraseÃ±a;
+    private VisTextField tfContraseña;
+    private VisTextField tfRContraseña;
     private VisTextField tfMail;
     private VisTextField tfRMail;
 
@@ -51,12 +51,12 @@ public class CrearPjView extends View {
                 tfNombre.setMaxLength(30);
 
                 newLabel(t, bu("cp.pass"), "col-title", "smallgradient").left().spaceBottom(0).row();
-                tfContraseÃ±a = newTextField(t, "", "", "bold", true).fill().getActor(); t.row();
-                tfContraseÃ±a.setMaxLength(100);
+                tfContraseña = newTextField(t, "", "", "bold", true).fill().getActor(); t.row();
+                tfContraseña.setMaxLength(100);
 
                 newLabel(t, bu("cp.rpass"), "col-title", "smallgradient").left().spaceBottom(0).row();
-                tfRContraseÃ±a = newTextField(t, "", "", "bold", true).fill().getActor(); t.row();
-                tfRContraseÃ±a.setMaxLength(100);
+                tfRContraseña = newTextField(t, "", "", "bold", true).fill().getActor(); t.row();
+                tfRContraseña.setMaxLength(100);
 
                 newLabel(t, bu("cp.mail"), "col-title", "smallgradient").left().spaceBottom(0).row();
                 tfMail = newTextField(t, "", "", "bold").fill().getActor(); t.row();
@@ -133,7 +133,7 @@ public class CrearPjView extends View {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                getGestor().crearPj(tfNombre.getText().trim(), tfContraseÃ±a.getText(), tfRContraseÃ±a.getText(),
+                getGestor().crearPj(tfNombre.getText().trim(), tfContraseña.getText(), tfRContraseña.getText(),
                         tfMail.getText().trim(), tfRMail.getText().trim(),
                         sbRaza.getSelectedIndex() + 1, sbGenero.getSelectedIndex() + 1, sbCiudad.getSelectedIndex() + 1);
             }

@@ -24,7 +24,7 @@ public class CrearPjManager extends ViewManager {
         return getGD().getCurrentUser().getAtributos();
     }
 
-    public void crearPj(String nombre, String contraseña, String rContraseña, String mail,
+    public void crearPj(String nombre, String contrase�a, String rContrase�a, String mail,
                         String rMail, int raza, int genero, int ciudad) {
 
         if (nombre.equals("")) {
@@ -32,12 +32,12 @@ public class CrearPjManager extends ViewManager {
             return;
         }
 
-        if (contraseña.equals("")) {
+        if (contrase�a.equals("")) {
             Dialogs.showOKDialog(bu("error"), "La contraseña no puede estar vacía.");
             return;
         }
 
-        Character c = StrUtils.getInvalidChar(contraseña);
+        Character c = StrUtils.getInvalidChar(contrase�a);
         if (c != null) {
             Dialogs.showOKDialog(bu("error"), "Contraseña inválida. No se permite el caractér '" + c + "'.");
             return;
@@ -50,7 +50,7 @@ public class CrearPjManager extends ViewManager {
 
         // TODO: Considerar chequear mail no válido (CheckMailString de VB6)
 
-        if (!contraseña.equals(rContraseña)) {
+        if (!contrase�a.equals(rContrase�a)) {
             Dialogs.showOKDialog(bu("error"), "Las contraseñas no coinciden.");
             return;
         }
@@ -61,7 +61,7 @@ public class CrearPjManager extends ViewManager {
         }
 
 
-        getClPack().writeLoginNewChar(nombre, contraseña, mail,
+        getClPack().writeLoginNewChar(nombre, contrase�a, mail,
                 raza, genero, ciudad);
     }
 

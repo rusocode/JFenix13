@@ -9,14 +9,14 @@ public class MenuManager extends ViewManager {
 
     }
 
-    public void conectar(String nombre, String contraseña) {
+    public void conectar(String nombre, String contrase�a) {
         if (nombre.equals(""))
             Dialogs.showOKDialog("Error", "El nombre no puede estar vacío.");
-        else if (contraseña.equals(""))
+        else if (contrase�a.equals(""))
             Dialogs.showOKDialog("Error", "La contraseña no puede estar vacía");
         else {
             if (getConnection().connect())
-                getClPack().writeLoginExistingChar(nombre, contraseña);
+                getClPack().writeLoginExistingChar(nombre, contrase�a);
         }
     }
 

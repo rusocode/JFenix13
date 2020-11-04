@@ -18,7 +18,7 @@ public class MenuView extends View {
     public MenuManager getGestor() { return (MenuManager)gestor; }
 
     private VisTextField tfNombre;
-    private VisTextField tfContraseña;
+    private VisTextField tfContrase�a;
     private VisTextButton tbCrearPj;
     private VisTextButton tbConfig;
     private VisTextButton tbEntrar;
@@ -40,7 +40,7 @@ public class MenuView extends View {
                 newLabel(t2, bu("mn.login"), "col-title", "smallgradient").left().row();
                 tfNombre = newTextField(t2, "", bu("mn.name-ms"), "bold").getActor(); t2.row();
                 tfNombre.setMaxLength(30);
-                tfContraseña = newTextField(t2, "", bu("mn.pass-ms"), "bold", true).getActor(); t2.row();
+                tfContrase�a = newTextField(t2, "", bu("mn.pass-ms"), "bold", true).getActor(); t2.row();
                 tbEntrar = newTextButton(t2, bu("mn.enter")).getActor();
         fitWindow(w);
 
@@ -79,19 +79,19 @@ public class MenuView extends View {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.ENTER)
-                    getGestor().conectar(tfNombre.getText(), tfContraseña.getText());
+                    getGestor().conectar(tfNombre.getText(), tfContrase�a.getText());
                 return super.keyUp(event, keycode);
             }
         };
         tfNombre.addListener(il);
-        tfContraseña.addListener(il);
+        tfContrase�a.addListener(il);
 
         // Click del botón Entrar
         tbEntrar.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                getGestor().conectar(tfNombre.getText(), tfContraseña.getText());
+                getGestor().conectar(tfNombre.getText(), tfContrase�a.getText());
             }
         });
 
