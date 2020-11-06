@@ -12,34 +12,36 @@ import static org.gszone.jfenix13.utils.Actors.*;
  */
 public class CargaView extends View {
 
-    public CargaView() {
-        super(new CargaManager());
-    }
-    public CargaManager getGestor() { return (CargaManager)gestor; }
+	public CargaView() {
+		super(new CargaManager());
+	}
 
-    @Override
-    public void show() {
-        super.show();
+	public CargaManager getGestor() {
+		return (CargaManager) gestor;
+	}
 
-        // Definición de los elementos de la pantalla
-        newFirstTable(getDrawable("g_carga"), false);
+	@Override
+	public void show() {
+		super.show();
 
-        // Eventos generales de la pantalla
-        stage.addListener(new InputListener() {
-            @Override
-            public boolean keyUp(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.ESCAPE)
-                    getGestor().salir();
-                return super.keyUp(event, keycode);
-            }
+		// Definicion de los elementos de la pantalla
+		newFirstTable(getDrawable("g_carga"), false);
 
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getGestor().salir();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
+		// Eventos generales de la pantalla
+		stage.addListener(new InputListener() {
+			@Override
+			public boolean keyUp(InputEvent event, int keycode) {
+				if (keycode == Input.Keys.ESCAPE) getGestor().salir();
+				return super.keyUp(event, keycode);
+			}
 
-        getGestor().playMusic(6);
-    }
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				getGestor().salir();
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+
+		getGestor().playMusic(6);
+	}
 }

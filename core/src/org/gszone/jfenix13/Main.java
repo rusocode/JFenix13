@@ -30,12 +30,10 @@ import static com.badlogic.gdx.Application.ApplicationType.*;
 /**
  * Clase principal del juego
  *
- * rebootable: contiene un Runnable (código para ejecutar) que se encarga de reiniciar el juego.
- * bundle: maneja los textos según el idioma.
- * config: ajustes iniciales (tamaño de pantalla, del world, etc).
- * assets: manejador de recursos
- * connection: permite la conexión con el servidor y el envío y recepción de paquetes.
- * gameData: contiene toda estructura y estado del juego
+ * rebootable: contiene un Runnable (código para ejecutar) que se encarga de reiniciar el juego. bundle: maneja los
+ * textos según el idioma. config: ajustes iniciales (tamaño de pantalla, del world, etc). assets: manejador de
+ * recursos connection: permite la conexión con el servidor y el envío y recepción de paquetes. gameData: contiene
+ * toda estructura y estado del juego
  */
 public class Main extends Game {
 
@@ -48,12 +46,12 @@ public class Main extends Game {
 
 	/**
 	 * Constructor usado en Desktop
+	 * 
 	 * @param rebootable trozo de código que reinicia el juego
 	 */
 	public Main(Runnable rebootable) {
 		this.rebootable = rebootable;
 	}
-
 
 	private Runnable rebootable;
 
@@ -81,19 +79,18 @@ public class Main extends Game {
 	}
 
 	/**
-	 * Inicialización del juego
+	 * Inicializacion del juego
 	 */
 	@Override
-	public void create () {
+	public void create() {
 		// Config global
 		Gdx.graphics.setTitle("Fénix XIII");
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Gdx.input.setCatchBackKey(true);
 
 		// TODO: ver el tema del cursor
-		/*Pixmap pm = new Pixmap(Gdx.files.internal(getCursorDir()));
-		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
-		pm.dispose();*/
+		/* Pixmap pm = new Pixmap(Gdx.files.internal(getCursorDir())); Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+		 * pm.dispose(); */
 
 		// Config propia del juego
 		bundle = I18NBundle.createBundle(Gdx.files.internal(getBundleDir()));
@@ -114,7 +111,7 @@ public class Main extends Game {
 
 		if (connection.getSvPack().isLostConnection()) {
 			setScreen(new MenuView());
-			Dialogs.showOKDialog(Main.getInstance().getBundle().get("error"), "Conexión perdida");
+			Dialogs.showOKDialog(Main.getInstance().getBundle().get("error"), "Conexion perdida");
 		}
 
 		// Procesamos los paquetes recibidos al socket
@@ -128,15 +125,14 @@ public class Main extends Game {
 
 		// Si es Web, le avisa al socket que envíe las acciones registradas anteriormente
 		// (para las demás plataformas no es necesario, ya que tienen un thread que se encarga de esto)
-		if (Gdx.app.getType() == WebGL)
-			connection.write();
+		if (Gdx.app.getType() == WebGL) connection.write();
 	}
 
 	/**
 	 * Liberar recursos
 	 */
 	@Override
-	public void dispose () {
+	public void dispose() {
 		VisUI.dispose();
 		screen.dispose();
 		assets.dispose();
@@ -147,7 +143,9 @@ public class Main extends Game {
 	/**
 	 * Obtiene la instancia del juego
 	 */
-	public static Main getInstance() { return (Main)Gdx.app.getApplicationListener(); }
+	public static Main getInstance() {
+		return (Main) Gdx.app.getApplicationListener();
+	}
 
 	/**
 	 * Devuelve un nuevo escenario usando el mismo Batch.
@@ -170,14 +168,31 @@ public class Main extends Game {
 			this.screen.show();
 			this.screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			Action a = Actions.sequence(Actions.alpha(0f), Actions.fadeIn(0.3f, Interpolation.fade));
-			((View)this.screen).getStage().addAction(a);
+			((View) this.screen).getStage().addAction(a);
 		}
 	}
 
-	public I18NBundle getBundle() { return bundle; }
-	public Batch getBatch() { return batch; }
-	public Config getConfig() { return config; }
-	public Assets getAssets() { return assets; }
-	public Connection getConnection() { return connection; }
-	public GameData getGameData() { return gameData; }
+	public I18NBundle getBundle() {
+		return bundle;
+	}
+
+	public Batch getBatch() {
+		return batch;
+	}
+
+	public Config getConfig() {
+		return config;
+	}
+
+	public Assets getAssets() {
+		return assets;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public GameData getGameData() {
+		return gameData;
+	}
 }

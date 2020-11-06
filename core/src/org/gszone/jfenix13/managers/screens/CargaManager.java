@@ -12,33 +12,30 @@ import static com.badlogic.gdx.Application.ApplicationType.WebGL;
 
 public class CargaManager extends ViewManager {
 
-    private Loader loader;
-    private long tiempoInicio;
-    private boolean solicitaSalir;
+	private Loader loader;
+	private long tiempoInicio;
+	private boolean solicitaSalir;
 
-    public CargaManager() {
-        // Crea el Loader
-        if (Gdx.app.getType() == WebGL)
-            loader = new WebLoader();
-        else
-            loader = new GnLoader();
+	public CargaManager() {
+		// Crea el Loader
+		if (Gdx.app.getType() == WebGL) loader = new WebLoader();
+		else loader = new GnLoader();
 
-        tiempoInicio = TimeUtils.millis();
-    }
+		tiempoInicio = TimeUtils.millis();
+	}
 
-    public void salir() {
-        solicitaSalir = true;
-    }
+	public void salir() {
+		solicitaSalir = true;
+	}
 
-    public void update() {
-        float value;
-        value = Main.getInstance().getAssets().loadNextAsset();
+	public void update() {
+		float value;
+		value = Main.getInstance().getAssets().loadNextAsset();
 
-        if (value == 1 && !loader.isLoading() && !loader.isLoaded())
-            loader.load();
+		if (value == 1 && !loader.isLoading() && !loader.isLoaded()) loader.load();
 
-        if (loader.isLoaded() && (TimeUtils.millis() - tiempoInicio > 6000 || solicitaSalir)) {
-            setScreen(new MenuView());
-        }
-    }
+		if (loader.isLoaded() && (TimeUtils.millis() - tiempoInicio > 6000 || solicitaSalir)) {
+			setScreen(new MenuView());
+		}
+	}
 }
