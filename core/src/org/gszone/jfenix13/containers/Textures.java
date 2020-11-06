@@ -7,9 +7,9 @@ import org.gszone.jfenix13.objects.TextureData;
 /**
  * Manejador de las texturas del juego
  * TODO: usar la estructura Hash de Java!!!
- * TODO: PONER LÍMITE DE MEMORIA Y BORRAR LAS TEXTURAS MÁS VIEJAS!!!
+ * TODO: PONER LIMITE DE MEMORIA Y BORRAR LAS TEXTURAS MAS VIEJAS!!!
  *
- * hash: array de array de TextureData. Se usa para agiliar la búsqueda de texturas.
+ * hash: array de array de TextureData. Se usa para agiliar la busqueda de texturas.
  */
 public class Textures {
 
@@ -20,13 +20,13 @@ public class Textures {
     }
 
     /**
-     * Obtiene una textura a partir de su número de gráfico (si no existe la crea)
+     * Obtiene una textura a partir de su nÃºmero de grÃ¡fico (si no existe la crea)
      */
     public Texture getTexture(int num) {
-        // Determino en que posición del Hash va la textura solicitada
+        // Determino en que posiciÃ³n del Hash va la textura solicitada
         int hashIndex = num % hash.length;
 
-        // Si es la primera textura en esa posición del Hash, creo el array y la textura solicitada
+        // Si es la primera textura en esa posiciÃ³n del Hash, creo el array y la textura solicitada
         if (hash[hashIndex] == null) {
             hash[hashIndex] = new Array<>();
             return createTexture(num);
@@ -41,7 +41,7 @@ public class Textures {
             }
         }
 
-        // Si no la encontró, la crea...
+        // Si no la encontrÃ³, la crea...
         return createTexture(num);
     }
 
@@ -49,7 +49,7 @@ public class Textures {
      * Crea una textura
      */
     private Texture createTexture(int num) {
-        // Creo la nueva textura y la agrego en el array de la posición correspondiente del Hash
+        // Creo la nueva textura y la agrego en el array de la posiciÃ³n correspondiente del Hash
         TextureData td = new TextureData(num);
         hash[num % hash.length].add(td);
         return td.getTex();

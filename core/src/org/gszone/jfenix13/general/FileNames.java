@@ -1,7 +1,7 @@
 package org.gszone.jfenix13.general;
 
 /**
- * Clase que permite obtener la dirección de cada fichero del juego.
+ * Clase que permite obtener la direccion de cada fichero del juego.
  */
 public class FileNames {
     public static final String DIR_GUI = "gui";
@@ -12,7 +12,7 @@ public class FileNames {
     public static final String DIR_SOUNDS = "sounds";
 
     public static String getDtConfigDir() {
-        // Dirección relativa de las configuraciones para Escritorio
+        // Direccion relativa de las configuraciones para Escritorio
         return "/.jfenix13/jfenix13.properties";
     }
 
