@@ -17,8 +17,11 @@ import static org.gszone.jfenix13.general.FileNames.getGuiDir;
 /**
  * Clase general para una Vista
  *
- * stage: escenario de la vista texs: conjunto de texturas que se van cargando (generalmente usadas para el fondo de
- * pantalla) se guarda su referencia para poder liberarlas de la memoria al cerrar la pantalla (método dispose() )
+ * stage: escenario de la vista
+ * 
+ * texs: Conjunto de texturas que se van cargando (generalmente usadas para el fondo de pantalla). Se guarda su
+ * referencia para poder liberarlas de la memoria al cerrar la pantalla (metodo dispose()).
+ * 
  */
 public abstract class View implements Screen {
 
@@ -48,10 +51,11 @@ public abstract class View implements Screen {
 		Texture tex = new Texture(getGuiDir(name));
 		texs.add(tex);
 
-		/* Toma una imagen y la convierte en NinePatch, para poder definirle bordes y así permitir mover ventanas (si fuera
-		 * éste el caso) */
+		/* Toma una imagen y la convierte en NinePatch, para poder definirle bordes y asi permitir mover ventanas (si fuera este
+		 * el caso). */
+
 		NinePatch n = new NinePatch(tex);
-		if (borders) n.setPadding(14, 14, 20, 20); // TODO: poner valores convenientes para que funcione bien el resizado y mover.
+		if (borders) n.setPadding(14, 14, 20, 20); // TODO: poner valores convenientes para que funcione bien el resizado y mover
 		return new NinePatchDrawable(n);
 	}
 
@@ -65,7 +69,7 @@ public abstract class View implements Screen {
 		// Actualiza al gestor
 		gestor.update();
 
-		// Realiza las acciones pendientes de todos los actores agregados al escenario.
+		// Realiza las acciones pendientes de todos los actores agregados al escenario
 		stage.act();
 
 		// Limpia la pantalla

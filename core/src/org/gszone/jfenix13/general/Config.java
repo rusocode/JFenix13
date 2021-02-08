@@ -6,169 +6,179 @@ import com.badlogic.gdx.Preferences;
 import static com.badlogic.gdx.Application.ApplicationType.*;
 
 /**
- * Contiene valores generales del juego, como tamaño de pantalla, velocidades, etc.
-
- * virtualWidth, virtualHeight: ancho y alto virtual (independiente del tamaño de pantalla del dispositivo)
+ * Contiene valores generales del juego, como tama�o de pantalla, velocidades, etc.
+ * 
+ * virtualWidth, virtualHeight: ancho y alto virtual (independiente del tama�o de pantalla del dispositivo)
+ * 
  * windowsTileWidth, windowsTileHeight: cantidad de tiles que tiene el mundo a lo largo del eje X e Y respectivamente.
+ * 
  * tilePixelWidth, tilePixelHeight: cantidad de pixeles (a lo ancho y alto) que ocupa un tile.
- * scrollPixelsPerFrame: multiplicador, mientras más grande es el número, mas rápido se mueve el personaje y la pantalla.
+ * 
+ * scrollPixelsPerFrame: multiplicador, mientras mas grande es el numero, mas rapido se mueve el personaje y la
+ * pantalla.
+ * 
  * baseSpeed: velocidad general del juego. De esto depende la velocidad de los Grhs, del movimiento de la pantalla, etc.
  *
  */
 public class Config {
-    public enum Direccion {NORTE, ESTE, SUR, OESTE}
 
-    private boolean musicActive;
-    private float musicVol;
-    private boolean soundActive;
-    private float soundVol;
+	public enum Direccion {
+		NORTE, ESTE, SUR, OESTE
+	}
 
-    private boolean hideRoofs;
+	private boolean musicActive;
+	private float musicVol;
+	private boolean soundActive;
+	private float soundVol;
 
-    // Ajustes definidos
-    private int virtualWidth, virtualHeight;
-    private int windowsTileWidth, windowsTileHeight;
-    private int tilePixelWidth, tilePixelHeight;
-    private int tileBufferSizeX, tileBufferSizeY;
-    private int scrollPixelsPerFrame;
-    private float baseSpeed;
+	private boolean hideRoofs;
 
-    public Config() {
+	// Ajustes definidos
+	private int virtualWidth, virtualHeight;
+	private int windowsTileWidth, windowsTileHeight;
+	private int tilePixelWidth, tilePixelHeight;
+	private int tileBufferSizeX, tileBufferSizeY;
+	private int scrollPixelsPerFrame;
+	private float baseSpeed;
 
-        Preferences pref = getPref();
-        musicActive = pref.getBoolean("music", true);
-        musicVol = pref.getFloat("musicVol", 1);
-        soundActive = pref.getBoolean("sound", true);
-        soundVol = pref.getFloat("soundVol", 1);
-        hideRoofs = pref.getBoolean("hideRoofs", false);
+	public Config() {
 
-        setOtherConfigs();
-    }
+		Preferences pref = getPref();
+		musicActive = pref.getBoolean("music", true);
+		musicVol = pref.getFloat("musicVol", 1);
+		soundActive = pref.getBoolean("sound", true);
+		soundVol = pref.getFloat("soundVol", 1);
+		hideRoofs = pref.getBoolean("hideRoofs", false);
 
-    public void saveConfigFile() {
+		setOtherConfigs();
+	}
 
-        Preferences pref = getPref();
-        pref.putBoolean("music", musicActive);
-        pref.putFloat("musicVol", musicVol);
-        pref.putBoolean("sound", soundActive);
-        pref.putFloat("soundVol", soundVol);
-        pref.putBoolean("hideRoofs", hideRoofs);
+	public void saveConfigFile() {
 
-        pref.flush();
-    }
+		Preferences pref = getPref();
+		pref.putBoolean("music", musicActive);
+		pref.putFloat("musicVol", musicVol);
+		pref.putBoolean("sound", soundActive);
+		pref.putFloat("soundVol", soundVol);
+		pref.putBoolean("hideRoofs", hideRoofs);
 
-    /**
-     * Setea ajustes totalmente definidos, sin posibilidad a cambio
-     */
-    private void setOtherConfigs() {
-        tilePixelWidth = 32;
-        tilePixelHeight = 32;
-        scrollPixelsPerFrame = 7;
-        //baseSpeed = 18.475f;
-        baseSpeed = 17.5f;
+		pref.flush();
+	}
 
-        // Configuraciones específicas para Escritorio y Web
-        if (Gdx.app.getType() == Desktop || Gdx.app.getType() == WebGL) {
-            // Pantalla virtual 4:3
-            virtualWidth = 1024;
-            virtualHeight = 768;
-            windowsTileWidth = 23;
-            windowsTileHeight = 17;
-            tileBufferSizeX = 11;
-            tileBufferSizeY = 11;
-        }
+	/**
+	 * Setea ajustes totalmente definidos, sin posibilidad a cambio
+	 */
+	private void setOtherConfigs() {
+		tilePixelWidth = 32;
+		tilePixelHeight = 32;
+		scrollPixelsPerFrame = 7;
+		// baseSpeed = 18.475f;
+		baseSpeed = 17.5f;
 
-        // Configuraciones específicas para Android e iOS
-        else {
-            // Pantalla virtual 16:9
-            virtualWidth = 512;
-            virtualHeight = 288;
-            windowsTileWidth = 11;
-            windowsTileHeight = 9;
-            tileBufferSizeX = 9;
-            tileBufferSizeY = 9;
-        }
-    }
+		// Configuraciones especificas para Escritorio y Web
+		if (Gdx.app.getType() == Desktop || Gdx.app.getType() == WebGL) {
+			// Pantalla virtual 4:3
+			virtualWidth = 1024;
+			virtualHeight = 768;
+			windowsTileWidth = 23;
+			windowsTileHeight = 17;
+			tileBufferSizeX = 11;
+			tileBufferSizeY = 11;
+		}
 
-    public boolean isMusicActive() {
-        return musicActive;
-    }
+		// Configuraciones especificas para Android e iOS
+		else {
+			// Pantalla virtual 16:9
+			virtualWidth = 512;
+			virtualHeight = 288;
+			windowsTileWidth = 11;
+			windowsTileHeight = 9;
+			tileBufferSizeX = 9;
+			tileBufferSizeY = 9;
+		}
+	}
 
-    public float getMusicVol() {
-        return musicVol;
-    }
+	public boolean isMusicActive() {
+		return musicActive;
+	}
 
-    public boolean isSoundActive() {
-        return soundActive;
-    }
+	public float getMusicVol() {
+		return musicVol;
+	}
 
-    public float getSoundVol() {
-        return soundVol;
-    }
+	public boolean isSoundActive() {
+		return soundActive;
+	}
 
-    public void setMusicActive(boolean musicActive) {
-        this.musicActive = musicActive;
-    }
+	public float getSoundVol() {
+		return soundVol;
+	}
 
-    public void setMusicVol(float musicVol) {
-        this.musicVol = musicVol;
-    }
+	public void setMusicActive(boolean musicActive) {
+		this.musicActive = musicActive;
+	}
 
-    public void setSoundActive(boolean soundActive) {
-        this.soundActive = soundActive;
-    }
+	public void setMusicVol(float musicVol) {
+		this.musicVol = musicVol;
+	}
 
-    public void setSoundVol(float soundVol) {
-        this.soundVol = soundVol;
-    }
+	public void setSoundActive(boolean soundActive) {
+		this.soundActive = soundActive;
+	}
 
-    public boolean isHideRoofs() {
-        return hideRoofs;
-    }
+	public void setSoundVol(float soundVol) {
+		this.soundVol = soundVol;
+	}
 
-    public void setHideRoofs(boolean hideRoofs) {
-        this.hideRoofs = hideRoofs;
-    }
+	public boolean isHideRoofs() {
+		return hideRoofs;
+	}
 
-    public int getVirtualWidth() {
-        return virtualWidth;
-    }
+	public void setHideRoofs(boolean hideRoofs) {
+		this.hideRoofs = hideRoofs;
+	}
 
-    public int getVirtualHeight() {
-        return virtualHeight;
-    }
+	public int getVirtualWidth() {
+		return virtualWidth;
+	}
 
-    public int getWindowsTileWidth() {
-        return windowsTileWidth;
-    }
+	public int getVirtualHeight() {
+		return virtualHeight;
+	}
 
-    public int getWindowsTileHeight() {
-        return windowsTileHeight;
-    }
+	public int getWindowsTileWidth() {
+		return windowsTileWidth;
+	}
 
-    public int getTilePixelWidth() {
-        return tilePixelWidth;
-    }
+	public int getWindowsTileHeight() {
+		return windowsTileHeight;
+	}
 
-    public int getTilePixelHeight() {
-        return tilePixelHeight;
-    }
+	public int getTilePixelWidth() {
+		return tilePixelWidth;
+	}
 
-    public int getTileBufferSizeX() {
-        return tileBufferSizeX;
-    }
+	public int getTilePixelHeight() {
+		return tilePixelHeight;
+	}
 
-    public int getTileBufferSizeY() {
-        return tileBufferSizeY;
-    }
+	public int getTileBufferSizeX() {
+		return tileBufferSizeX;
+	}
 
-    public int getScrollPixelsPerFrame() {
-        return scrollPixelsPerFrame;
-    }
+	public int getTileBufferSizeY() {
+		return tileBufferSizeY;
+	}
 
-    public float getBaseSpeed() {
-        return baseSpeed;
-    }
+	public int getScrollPixelsPerFrame() {
+		return scrollPixelsPerFrame;
+	}
 
-    public Preferences getPref() { return Gdx.app.getPreferences("jfenix13"); }
+	public float getBaseSpeed() {
+		return baseSpeed;
+	}
+
+	public Preferences getPref() {
+		return Gdx.app.getPreferences("jfenix13");
+	}
 }

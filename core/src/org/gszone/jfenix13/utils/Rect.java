@@ -33,7 +33,7 @@ public class Rect {
     }
 
     /**
-     * Verifica si un punto está dentro del rectángulo principal
+     * Verifica si un punto esta dentro del rectangulo principal
      * @param x: coordenada en X
      * @param y: coordenada en Y
      * @return

@@ -7,90 +7,92 @@ import org.gszone.jfenix13.objects.GrhDir;
 import org.gszone.jfenix13.utils.BytesReader;
 import org.gszone.jfenix13.utils.NotEnoughDataException;
 
-import java.io.IOException;
-
 import static org.gszone.jfenix13.general.FileNames.*;
 
 /**
  * Manejador de una parte del personaje.
  *
- * grhDirs: conjunto de muchos grupos de grhs (según dirección).
- * tipo: tipo de agrupación (cabezas, cascos, armas o escudos)
+ * grhDirs: conjunto de muchos grupos de grhs (segun direccion).
+ * 
+ * tipo: tipo de agrupacion (cabezas, cascos, armas o escudos)
  */
 public class PartChar {
-    public enum Tipo {HEAD, HELMET, WEAPON, SHIELD}
 
-    private GrhDir[] grhDirs;
-    private Tipo tipo;
+	public enum Tipo {
+		HEAD, HELMET, WEAPON, SHIELD
+	}
 
-    public PartChar(Tipo tipo) {
-        this.tipo = tipo;
+	private GrhDir[] grhDirs;
+	private Tipo tipo;
 
-        try {
-            load();
-        }
-        catch (NotEnoughDataException ex) {
-            ex.printStackTrace();
-        }
-    }
+	public PartChar(Tipo tipo) {
+		this.tipo = tipo;
 
-    /**
-     * Carga todos los PartChar
-     */
-    private void load() throws NotEnoughDataException {
+		try {
+			load();
+		} catch (NotEnoughDataException ex) {
+			ex.printStackTrace();
+		}
+	}
 
-        // Defino de donde obtengo el archivo según lo que sea (cabezas o cascos)
-        String d = "";
-        switch (tipo) {
-            case HEAD:
-                d = getHeadsIndDir();
-                break;
-            case HELMET:
-                d = getHelmetsIndDir();
-                break;
-            case WEAPON:
-                d = getWeaponsIndDir();
-                break;
-            case SHIELD:
-                d = getShieldsIndDir();
-                break;
-        }
+	// Carga todos los PartChar
+	private void load() throws NotEnoughDataException {
 
-        FileHandle fh = Gdx.files.internal(d);
-        BytesReader r = new BytesReader(fh.readBytes(), true);
+		// Defino de donde obtengo el archivo segun lo que sea (cabezas o cascos)
+		String d = "";
+		switch (tipo) {
+		case HEAD:
+			d = getHeadsIndDir();
+			break;
+		case HELMET:
+			d = getHelmetsIndDir();
+			break;
+		case WEAPON:
+			d = getWeaponsIndDir();
+			break;
+		case SHIELD:
+			d = getShieldsIndDir();
+			break;
+		}
 
-        // Omite los primeros bytes que no interesan
-        r.skipBytes(263);
+		FileHandle fh = Gdx.files.internal(d);
+		BytesReader r = new BytesReader(fh.readBytes(), true);
 
-        int cant = r.readShort();
-        grhDirs = new GrhDir[cant];
-        for (int i = 0; i < cant; i++) {
-            GrhDir grhdir = new GrhDir();
+		// Omite los primeros bytes que no interesan
+		r.skipBytes(263);
 
-            // Leo los valores de los Grh (índices)
-            short[] grhIndex = new short[Config.Direccion.values().length];
-            for (int j = 0; j < grhIndex.length; j++) {
-                grhIndex[j] = r.readShort();
-            }
+		int cant = r.readShort();
+		grhDirs = new GrhDir[cant];
+		for (int i = 0; i < cant; i++) {
+			GrhDir grhdir = new GrhDir();
 
-            // Los seteo en la parte del personaje
-            if (grhIndex[0] > 0 || tipo == Tipo.WEAPON || tipo == Tipo.SHIELD) {
-                for (Config.Direccion dir : Config.Direccion.values())
-                    grhdir.setGrhIndex(dir, grhIndex[dir.ordinal()]);
-            }
+			// Leo los valores de los Grh (índices)
+			short[] grhIndex = new short[Config.Direccion.values().length];
+			for (int j = 0; j < grhIndex.length; j++) {
+				grhIndex[j] = r.readShort();
+			}
 
-            grhDirs[i] = grhdir;
-        }
-    }
+			// Los seteo en la parte del personaje
+			if (grhIndex[0] > 0 || tipo == Tipo.WEAPON || tipo == Tipo.SHIELD) {
+				for (Config.Direccion dir : Config.Direccion.values())
+					grhdir.setGrhIndex(dir, grhIndex[dir.ordinal()]);
+			}
 
-    public GrhDir[] getGrhDirs() { return grhDirs; }
+			grhDirs[i] = grhdir;
+		}
+	}
 
-    /**
-     * Obtiene un objeto GrhDir (verificar a la hora de usarlo que no sea null)
-     * @param index: número de cabeza, casco, arma o escudo
-     */
-    public GrhDir getGrhDir(int index) {
-        if (index - 1 < 0 || index - 1 >= grhDirs.length) return null;
-        return grhDirs[index - 1];
-    }
+	public GrhDir[] getGrhDirs() {
+		return grhDirs;
+	}
+
+	/**
+	 * Obtiene un objeto GrhDir (verificar a la hora de usarlo que no sea null)
+	 * 
+	 * @param index: número de cabeza, casco, arma o escudo
+	 */
+	public GrhDir getGrhDir(int index) {
+		if (index - 1 < 0 || index - 1 >= grhDirs.length) return null;
+		return grhDirs[index - 1];
+	}
 }

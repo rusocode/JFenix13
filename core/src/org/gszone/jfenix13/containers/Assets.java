@@ -10,10 +10,28 @@ import static org.gszone.jfenix13.general.FileNames.*;
 /**
  * Contiene todos los objetos cargados desde los assets
  *
- * gdxAssets: manejador de assets que libGDX sabe manejar (atlas, texturas, musica, sonidos, etc) los demas corresponden
- * a archivos de datos propios del juego. audio: manejador de sonidos y música grhs: manejador de grhs fonts: manejador
- * de fuentes bodies: manejador de cuerpos heads: manejador de cabezas helmets: manejador de cascos weapons: manejador
- * de armas shields: manejador de escudos fxs: manejador de fxs mapa: mapa actual
+ * gdxAssets: manejador de assets que libGDX sabe manejar (atlas, texturas, musica, sonidos, etc), los demas
+ * corresponden a archivos de datos propios del juego.
+ * 
+ * audio: manejador de sonidos y musica
+ * 
+ * grhs: manejador de grhs
+ * 
+ * fonts: manejador de fuentes
+ * 
+ * bodies: manejador de cuerpos
+ * 
+ * heads: manejador de cabezas
+ * 
+ * helmets: manejador de cascos
+ * 
+ * weapons: manejador de armas
+ * 
+ * shields: manejador de escudos
+ * 
+ * fxs: manejador de fxs
+ * 
+ * mapa: mapa actual
  */
 
 public class Assets {
@@ -52,9 +70,7 @@ public class Assets {
 		return gdxAssets.getProgress();
 	}
 
-	/**
-	 * Termina de cargar el resto de assets propios del juego
-	 */
+	// Termina de cargar el resto de assets propios del juego
 	public void loadRemaining() {
 		textures = new Textures();
 		grhs = new Grhs();
@@ -110,9 +126,7 @@ public class Assets {
 		this.mapa = new Map(num);
 	}
 
-	/**
-	 * Elimina de memoria lo que no se elimina por defecto
-	 */
+	// Elimina de memoria lo que no se elimina por defecto
 	public void dispose() {
 		gdxAssets.dispose();
 		textures.dispose();

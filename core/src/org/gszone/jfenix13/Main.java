@@ -30,28 +30,19 @@ import static com.badlogic.gdx.Application.ApplicationType.*;
 /**
  * Clase principal del juego
  *
- * rebootable: contiene un Runnable (código para ejecutar) que se encarga de reiniciar el juego. bundle: maneja los
- * textos según el idioma. config: ajustes iniciales (tamaño de pantalla, del world, etc). assets: manejador de
- * recursos connection: permite la conexión con el servidor y el envío y recepción de paquetes. gameData: contiene
- * toda estructura y estado del juego
+ * rebootable: contiene un Runnable (codigo para ejecutar) que se encarga de reiniciar el juego.
+ * 
+ * bundle: maneja los textos segun el idioma.
+ * 
+ * config: ajustes iniciales (tama�o de pantalla, del world, etc).
+ * 
+ * assets: manejador de recursos
+ * 
+ * connection: permite la conexion con el servidor y el envio y recepcion de paquetes.
+ * 
+ * gameData: contiene toda estructura y estado del juego
  */
 public class Main extends Game {
-
-	/**
-	 * Constructor general
-	 */
-	public Main() {
-
-	}
-
-	/**
-	 * Constructor usado en Desktop
-	 * 
-	 * @param rebootable trozo de código que reinicia el juego
-	 */
-	public Main(Runnable rebootable) {
-		this.rebootable = rebootable;
-	}
 
 	private Runnable rebootable;
 
@@ -64,27 +55,37 @@ public class Main extends Game {
 	private GameData gameData;
 
 	/**
-	 * Sale del juego
+	 * Constructor general
 	 */
+	public Main() {
+
+	}
+
+	/**
+	 * Constructor usado en Desktop
+	 * 
+	 * @param rebootable trozo de codigo que reinicia el juego
+	 */
+	public Main(Runnable rebootable) {
+		this.rebootable = rebootable;
+	}
+
+	// Sale del juego
 	public void salir() {
 		Gdx.app.exit();
 	}
 
-	/**
-	 * Reinicia el juego
-	 */
+	// Reinicia el juego
 	public void reiniciar() {
-		// Inserta y ejecuta el runnable en la aplicación
+		// Inserta y ejecuta el runnable en la aplicacion
 		Gdx.app.postRunnable(rebootable);
 	}
 
-	/**
-	 * Inicializacion del juego
-	 */
+	// Inicializacion del juego
 	@Override
 	public void create() {
 		// Config global
-		Gdx.graphics.setTitle("Fénix XIII");
+		Gdx.graphics.setTitle("Fenix XIII");
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Gdx.input.setCatchBackKey(true);
 
@@ -100,7 +101,7 @@ public class Main extends Game {
 		VisUI.load(assets.getGDXAssets().get(getSkinDir(), Skin.class));
 		gameData = new GameData();
 
-		// Conexión
+		// Conexion
 		connection = new GnConnection();
 
 		setScreen(new CargaView());
@@ -123,14 +124,12 @@ public class Main extends Game {
 		// Escribe agrega los bytes pendientes a la cola.
 		connection.getClPack().write();
 
-		// Si es Web, le avisa al socket que envíe las acciones registradas anteriormente
-		// (para las demás plataformas no es necesario, ya que tienen un thread que se encarga de esto)
+		/* Si es Web, le avisa al socket que envie las acciones registradas anteriormente (para las demas plataformas no es
+		 * necesario, ya que tienen un thread que se encarga de esto). */
 		if (Gdx.app.getType() == WebGL) connection.write();
 	}
 
-	/**
-	 * Liberar recursos
-	 */
+	// Libera los recursos
 	@Override
 	public void dispose() {
 		VisUI.dispose();
@@ -140,16 +139,12 @@ public class Main extends Game {
 		batch.dispose();
 	}
 
-	/**
-	 * Obtiene la instancia del juego
-	 */
+	// Obtiene la instancia del juego
 	public static Main getInstance() {
 		return (Main) Gdx.app.getApplicationListener();
 	}
 
-	/**
-	 * Devuelve un nuevo escenario usando el mismo Batch.
-	 */
+	// Devuelve un nuevo escenario usando el mismo Batch
 	public static Stage newStage() {
 		Config c = Main.getInstance().getConfig();
 		return new Stage(new FitViewport(c.getVirtualWidth(), c.getVirtualHeight()), Main.getInstance().getBatch());

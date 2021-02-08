@@ -19,7 +19,9 @@ public abstract class ViewManager {
 	 *
 	 * No debe ser llamado.. solo hacer Override.. ya es llamado desde la clase abstracta {@link View}
 	 */
+
 	public void update() {
+
 	}
 
 	public void playMusic(int num) {
