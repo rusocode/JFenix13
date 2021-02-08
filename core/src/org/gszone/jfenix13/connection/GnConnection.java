@@ -22,7 +22,7 @@ import java.io.*;
 public class GnConnection implements Connection {
 
 	public static final String IP = "localhost";
-	public static final int PORT = 1200; // 7666 defecto
+	public static final int PORT = 7666; // 7666 defecto
 
 	private Socket socket;
 	private Thread thread;
@@ -74,8 +74,10 @@ public class GnConnection implements Connection {
 					} catch (Exception ex) {
 						svPack.setLostConnection(true);
 						// TODO: revisar la SocketException y manejarla...
-						// sacar si es necesario ese trozo de código del main para volver al menu y mostrar
-						// mensaje de conexion perdida
+						/*
+						 * Sacar si es necesario ese trozo de codigo del main para volver al menu y mostrar
+						 * mensaje de conexion perdida.
+						 */
 					}
 				}
 

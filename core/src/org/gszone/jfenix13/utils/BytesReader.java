@@ -94,7 +94,7 @@ public class BytesReader {
     }
 
     /**
-     * Guarda la posición actual
+     * Guarda la posicion actual
      */
     public void mark() {
         posMark = pos;

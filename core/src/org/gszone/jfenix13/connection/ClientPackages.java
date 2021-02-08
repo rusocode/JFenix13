@@ -11,7 +11,7 @@ import org.gszone.jfenix13.utils.Position;
  * Clase con los paquetes que se envian al servidor
  *
  * bytes: Corresponde a la secuencia de paquetes que se esta armando antes de ser enviada al servidor.
- * cola: Coleccion con las secuencias obtenidas en "bytes". (el socket va leyendo esta cola constantemente)
+ * cola: Coleccion con las secuencias obtenidas en "bytes" (el socket va leyendo esta cola constantemente).
  * pingTime: Usado para medir el tiempo de respuesta del servidor.
  * 
  */
@@ -99,8 +99,10 @@ public class ClientPackages {
 		EligioRecompensa, RequestGuildWindow, GuildFoundate, GuildConfirmFoundation, GuildRequest, MoveItem
 	}
 
-	/* Las ID de los comandos de GM empiezan en 0, ¡pero deberian empezar en 1!,
-	 * por eso cada vez que se mande la ID por el socket, hay que sumarle 1. */
+	/*
+	 * Las ID de los comandos de GM empiezan en 0, ¡pero deberian empezar en 1!,
+	 * por eso cada vez que se mande la ID por el socket, hay que sumarle 1.
+	 */
 	enum GmID {
 		GMMessage, // /GMSG
 		showName, // /SHOWNAME
@@ -242,8 +244,10 @@ public class ClientPackages {
 	 */
 	public byte[] removeAll() {
 
-		/* Guarda el tamaño para asegurarse que va a extraer solo lo que hay hasta este punto, y evitar procesar algo
-		 * que el thread principal agregue. */
+		/*
+		 * Guarda el tamaño para asegurarse que va a extraer solo lo que hay hasta este punto, y evitar procesar algo
+		 * que el thread principal agregue.
+		 */
 		int size = cola.size;
 
 		// Cantidad total de bytes
@@ -344,7 +348,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Peticion de posicion. (para corregirla)
+	 * Peticion de posicion (para corregirla).
 	 */
 	public void writeRequestPositionUpdate() {
 		w.writeByte(ID.RequestPositionUpdate.ordinal());
