@@ -22,7 +22,7 @@ import java.io.*;
 public class GnConnection implements Connection {
 
 	public static final String IP = "localhost";
-	public static final int PORT = 7666; // 7666 defecto
+	public static final int PORT = 1200; // 7666 defecto
 
 	private Socket socket;
 	private Thread thread;
@@ -98,7 +98,7 @@ public class GnConnection implements Connection {
 			// Conectarse al servidor
 			SocketHints hints = new SocketHints();
 
-			socket = Gdx.net.newClientSocket(Net.Protocol.TCP, IP, PORT, hints);
+			socket = Gdx.net.newClientSocket(Net.Protocol.TCP, IP, PORT, null);
 
 			if (socket.isConnected()) {
 				thread = getThread();
