@@ -238,7 +238,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Arma un gran array de bytes, con cada array de la cola y lo devuelve.
+	 * Arma un gran array de bytes con cada array de la cola y lo devuelve.
 	 */
 	public byte[] removeAll() {
 
@@ -248,11 +248,11 @@ public class ClientPackages {
 
 		// Cantidad total de bytes
 		int cant = 0;
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++)
 			cant += cola.get(i).length;
-		}
 
 		byte[] totales = new byte[cant];
+
 		int pos = 0;
 		for (int i = 0; i < size; i++) {
 			byte[] bytes = cola.removeFirst();
@@ -277,7 +277,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Agrega el array pendiente a la cola, y lo vacía para mas escritura de paquetes
+	 * Agrega el array pendiente a la cola y lo vacia para mas escritura de paquetes.
 	 */
 	public void write() {
 		if (w.getSize() > 0) {
@@ -287,7 +287,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Petición para conectarse
+	 * Peticion para conectarse.
 	 */
 	public void writeLoginExistingChar(String name, String password) {
 		w.writeByte(ID.LoginExistingChar.ordinal());
@@ -322,7 +322,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Caminar hacia una dirección
+	 * Caminar hacia una direccion.
 	 */
 	public void writeWalk(Config.Direccion dir) {
 		w.writeByte(ID.Walk.ordinal());
@@ -336,7 +336,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Cambio de dirección sin cambiar de tile
+	 * Cambio de direccion sin cambiar de tile.
 	 */
 	public void writeChangeHeading(Config.Direccion dir) {
 		w.writeByte(ID.ChangeHeading.ordinal());
@@ -344,7 +344,7 @@ public class ClientPackages {
 	}
 
 	/**
-	 * Petición de posición (para corregirla)
+	 * Peticion de posicion. (para corregirla)
 	 */
 	public void writeRequestPositionUpdate() {
 		w.writeByte(ID.RequestPositionUpdate.ordinal());
