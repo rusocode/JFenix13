@@ -13,221 +13,215 @@ import org.gszone.jfenix13.graphics.DrawParameter;
 import org.gszone.jfenix13.graphics.Drawer;
 
 /**
- * Slot (es un elemento de la Grilla)
- *
- * Estáticos:
- * -- colores
- * -- background (imagen de fondo del slot) y border (imagen cuadrada que rodea al slot)
- *
- * backgroundColor: color de fondo del Slot.
- * nombre: nombre del slot
- * cantidad: cantidad de elementos que tiene el slot
- * grh: número de índice del grh que representa al slot.
- * grhWidth, grhHeight: dimensiones del Grh. (se usan para centrar la imagen por mas que se agrande el slot)
- * checked: indica si el slot está selecionado.
- * visible: indica si el slot se debe visualizar.
- * disabled: indica si el slot está deshabilitado.
- * grid: referencia a la grilla que lo contiene
- * tooltip: referencia al tooltip del slot
+ * Slot (elemento de la grilla)
+ * 
+ * backgroundColor: Color de fondo del slot.
+ * nombre: Nombre del slot.
+ * cantidad: Cantidad de elementos que tiene el slot.
+ * grh: Numero de indice del grh que representa al slot.
+ * grhWidth, grhHeight: Dimensiones del grh. (se usan para centrar la imagen por mas que se agrande el slot)
+ * checked: Indica si el slot esta selecionado.
+ * visible: Indica si el slot se debe visualizar.
+ * disabled: Indica si el slot esta deshabilitado.
+ * grid: Referencia a la grilla que lo contiene.
+ * tooltip: Referencia al tooltip del slot.
  */
+
 public class Slot extends Actor {
-    private static final Color COL_BACKGROUND = new Color(0, 0, 0, 0.4f);
-    private static final Color COL_DISABLED = new Color(0.05f, 0, 0, 0.4f);
-    private static final Color COL_CHECKED = new Color(1, 1, 0.5f, 1);
 
-    private static Drawable background;
-    private static Drawable border;
+	// Colores
+	private static final Color COL_BACKGROUND = new Color(0, 0, 0, 0.4f);
+	private static final Color COL_DISABLED = new Color(0.05f, 0, 0, 0.4f);
+	private static final Color COL_CHECKED = new Color(1, 1, 0.5f, 1);
 
-    private Color backgroundColor;
+	private static Drawable background; // Imagen de fondo
+	private static Drawable border; // Imagen cuadrada que rodea al slot
 
-    private String nombre;
-    private int cantidad;
-    private int grh;
-    private int grhWidth;
-    private int grhHeight;
+	private Color backgroundColor;
 
-    private boolean checked;
-    private boolean visible;
-    private boolean disabled;
-    private Grid grid;
+	private String nombre;
+	private int cantidad;
+	private int grh;
+	private int grhWidth;
+	private int grhHeight;
 
-    private Tooltip tooltip;
+	private boolean checked;
+	private boolean visible;
+	private boolean disabled;
+	private Grid grid;
 
-    public Slot() {
-        this(null);
-    }
+	private Tooltip tooltip;
 
-    public Slot(Grid grid) {
-        this(false);
-        backgroundColor = COL_BACKGROUND;
-        visible = true;
-        this.grid = grid;
-    }
+	public Slot() {
+		this(null);
+	}
 
-    public Slot(boolean big) {
+	public Slot(Grid grid) {
+		this(false);
+		backgroundColor = COL_BACKGROUND;
+		visible = true;
+		this.grid = grid;
+	}
 
-        if (!big) {
-            // Normales
-            if (background == null || border == null) {
-                background = VisUI.getSkin().getDrawable("slot38x38");
-                border = VisUI.getSkin().getDrawable("slot-border38x38");
-            }
-            setSize(38, 38);
-        }
+	public Slot(boolean big) {
 
-        else {
-            // Grandes
-            // TODO: cargar drawables y configurar tamaño para slots más grandes.
-        }
+		if (!big) {
+			// Normales
+			if (background == null || border == null) {
+				background = VisUI.getSkin().getDrawable("slot38x38");
+				border = VisUI.getSkin().getDrawable("slot-border38x38");
+			}
+			setSize(38, 38);
+		}
 
-        addListener(new ClickListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                if (getCantidad() == 0 || grid == null || isDisabled()) return;
+		else {
+			// Grandes
+			// TODO: Cargar drawables y configurar tama�o para slots mas grandes.
+		}
 
-                if (button == 0) {
-                    if (getTapCount() == 1) {
-                        if (!isChecked())
-                            getGrid().setSelected(Slot.this);
-                        getGrid().onClick(Slot.this);
-                    } else if (getTapCount() == 2) getGrid().onDblClick(Slot.this);
-                }
-                else if (button == 1) {
-                    if (getTapCount() == 1)
-                        getGrid().onRightClick(Slot.this);
-                    else if (getTapCount() == 2)
-                        getGrid().onRightDblClick(Slot.this);
-                }
+		addListener(new ClickListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				super.touchUp(event, x, y, pointer, button);
+				if (getCantidad() == 0 || grid == null || isDisabled()) return;
 
-                if (getTapCount() >= 2) setTapCount(0);
-            }
-        });
-    }
+				if (button == 0) {
+					if (getTapCount() == 1) {
+						if (!isChecked()) getGrid().setSelected(Slot.this);
+						getGrid().onClick(Slot.this);
+					} else if (getTapCount() == 2) getGrid().onDblClick(Slot.this);
+				} else if (button == 1) {
+					if (getTapCount() == 1) getGrid().onRightClick(Slot.this);
+					else if (getTapCount() == 2) getGrid().onRightDblClick(Slot.this);
+				}
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        float x = getX();
-        float y = Main.getInstance().getConfig().getVirtualHeight() - getY() - getHeight();
+				if (getTapCount() >= 2) setTapCount(0);
+			}
+		});
+	}
 
-        // Guardarmos el color que ya tenía el batch
-        Color c = batch.getColor();
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		float x = getX();
+		float y = Main.getInstance().getConfig().getVirtualHeight() - getY() - getHeight();
 
-        // Dibujamos el fondo
-        batch.setColor(backgroundColor);
-        background.draw(batch, getX(), getY(), getWidth(), getHeight());
-        batch.setColor(c);
+		// Guardarmos el color que ya tenia el batch
+		Color c = batch.getColor();
 
-        // Si está vacío o invisible no mostramos nada
-        if (getCantidad() == 0 || !isVisible()) return;
+		// Dibujamos el fondo
+		batch.setColor(backgroundColor);
+		background.draw(batch, getX(), getY(), getWidth(), getHeight());
+		batch.setColor(c);
 
-        // Dibujamos el checked
-        if (checked) {
-            batch.setColor(COL_CHECKED);
-            border.draw(batch, getX(), getY(), getWidth(), getHeight());
-        }
-        batch.setColor(c);
+		// Si esta vacio o invisible no mostramos nada
+		if (getCantidad() == 0 || !isVisible()) return;
 
-        DrawParameter dp = new DrawParameter();
-        dp.setColor(getColor());
-        Drawer.drawGrh(batch, getGrh(), x + getWidth() / 2 - getGrhWidth() / 2, y + getHeight() / 2 - getGrhHeight() / 2, dp);
-    }
+		// Dibujamos el checked
+		if (checked) {
+			batch.setColor(COL_CHECKED);
+			border.draw(batch, getX(), getY(), getWidth(), getHeight());
+		}
+		batch.setColor(c);
 
-    public String getNombre() {
-        return nombre;
-    }
+		DrawParameter dp = new DrawParameter();
+		dp.setColor(getColor());
+		Drawer.drawGrh(batch, getGrh(), x + getWidth() / 2 - getGrhWidth() / 2, y + getHeight() / 2 - getGrhHeight() / 2, dp);
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public int getCantidad() {
-        return cantidad;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
+	public int getCantidad() {
+		return cantidad;
+	}
 
-    public boolean isEmpty() {
-        return cantidad == 0;
-    }
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 
-    public int getGrh() {
-        return grh;
-    }
+	public boolean isEmpty() {
+		return cantidad == 0;
+	}
 
-    public void setGrh(int grh) {
-        this.grh = grh;
-    }
+	public int getGrh() {
+		return grh;
+	}
 
-    public void setGrhSize(int width, int height) {
-        grhWidth = width;
-        grhHeight = height;
-    }
+	public void setGrh(int grh) {
+		this.grh = grh;
+	}
 
-    public int getGrhWidth() {
-        return grhWidth;
-    }
+	public void setGrhSize(int width, int height) {
+		grhWidth = width;
+		grhHeight = height;
+	}
 
-    public void setGrhWidth(int grhWidth) {
-        this.grhWidth = grhWidth;
-    }
+	public int getGrhWidth() {
+		return grhWidth;
+	}
 
-    public int getGrhHeight() {
-        return grhHeight;
-    }
+	public void setGrhWidth(int grhWidth) {
+		this.grhWidth = grhWidth;
+	}
 
-    public void setGrhHeight(int grhHeight) {
-        this.grhHeight = grhHeight;
-    }
+	public int getGrhHeight() {
+		return grhHeight;
+	}
 
-    public boolean isChecked() {
-        return checked;
-    }
+	public void setGrhHeight(int grhHeight) {
+		this.grhHeight = grhHeight;
+	}
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
+	public boolean isChecked() {
+		return checked;
+	}
 
-    public Grid getGrid() {
-        return grid;
-    }
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
+	public Grid getGrid() {
+		return grid;
+	}
 
-    public Color getColBackground() {
-        return backgroundColor;
-    }
+	public void setGrid(Grid grid) {
+		this.grid = grid;
+	}
 
-    public void setColBackground(Color backgroundColor) {
-        this.backgroundColor = backgroundColor != null ? backgroundColor : COL_BACKGROUND;
-    }
+	public Color getColBackground() {
+		return backgroundColor;
+	}
 
-    @Override
-    public boolean isVisible() {
-        return visible;
-    }
+	public void setColBackground(Color backgroundColor) {
+		this.backgroundColor = backgroundColor != null ? backgroundColor : COL_BACKGROUND;
+	}
 
-    @Override
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+	@Override
+	public boolean isVisible() {
+		return visible;
+	}
 
-    public boolean isDisabled() {
-        return disabled;
-    }
+	@Override
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
-        setColBackground(disabled ? COL_DISABLED : null);
-    }
+	public boolean isDisabled() {
+		return disabled;
+	}
 
-    public void setTooltip(Tooltip tooltip) {
-        if (this.tooltip != null)
-            Tooltip.removeTooltip(this);
-        this.tooltip = tooltip;
-    }
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+		setColBackground(disabled ? COL_DISABLED : null);
+	}
+
+	public void setTooltip(Tooltip tooltip) {
+		if (this.tooltip != null) Tooltip.removeTooltip(this);
+		this.tooltip = tooltip;
+	}
 }
