@@ -56,9 +56,9 @@ public class GnConnection implements Connection {
 			public void run() {
 				while (!disposed) {
 					try {
-						
+
 						if (socket == null) return;
-						
+
 						// Si el socket esta desconectado o se esta por destruir no sigue
 						if (disposed || !socket.isConnected()) return;
 
@@ -97,10 +97,9 @@ public class GnConnection implements Connection {
 
 			// Conectarse al servidor
 			SocketHints hints = new SocketHints();
-			
+
 			socket = Gdx.net.newClientSocket(Net.Protocol.TCP, IP, PORT, hints);
 
-			
 			if (socket.isConnected()) {
 				thread = getThread();
 				thread.start();

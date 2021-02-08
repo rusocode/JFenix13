@@ -30,17 +30,13 @@ import static com.badlogic.gdx.Application.ApplicationType.*;
 /**
  * Clase principal del juego
  *
- * rebootable: contiene un Runnable (codigo para ejecutar) que se encarga de reiniciar el juego.
+ * rebootable: Contiene un Runnable (codigo para ejecutar) que se encarga de reiniciar el juego.
+ * bundle: Maneja los textos segun el idioma.
+ * config: Ajustes iniciales (tamaño de pantalla, del world, etc).
+ * assets: Manejador de recursos.
+ * connection: Permite la conexion con el servidor y el envio y recepcion de paquetes.
+ * gameData: Contiene toda la estructura y estado del juego.
  * 
- * bundle: maneja los textos segun el idioma.
- * 
- * config: ajustes iniciales (tamaño de pantalla, del world, etc).
- * 
- * assets: manejador de recursos
- * 
- * connection: permite la conexion con el servidor y el envio y recepcion de paquetes.
- * 
- * gameData: contiene toda estructura y estado del juego
  */
 public class Main extends Game {
 
@@ -121,7 +117,7 @@ public class Main extends Game {
 		// Uso esta llamada para que se siga renderizando la pantalla actual normalmente
 		super.render();
 
-		// Escribe agrega los bytes pendientes a la cola.
+		// Escribe agrega los bytes pendientes a la cola
 		connection.getClPack().write();
 
 		/* Si es Web, le avisa al socket que envie las acciones registradas anteriormente (para las demas plataformas no es
@@ -151,7 +147,7 @@ public class Main extends Game {
 	}
 
 	/**
-	 * Cambia de Screen. (desecha la anterior y usa la nueva)
+	 * Cambia de Screen (desecha la anterior y usa la nueva)
 	 *
 	 * @param screen
 	 */
